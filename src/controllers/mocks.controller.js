@@ -21,7 +21,6 @@ const getUsuarios = async (req, res) => {
 
 const generateData = async (req, res) => {
     try {
-        // BUG FIX: aceptar params por query O por body
         const users = Number(req.body.users ?? req.query.users ?? 0);
         const pets  = Number(req.body.pets  ?? req.query.pets  ?? 0);
 
@@ -34,15 +33,13 @@ const generateData = async (req, res) => {
 
         if (pets > 0) {
             petList = await MockingService.generarMockingPets(pets);
-            // BUG FIX: usar insertMany (método insert del DAO) en vez de save/create
-            // que solo acepta un documento a la vez
-            await petsService.dao.insert(petList);
+            // BUG FIX: usar insertMany del repository en vez de dao directamente
+            await petsService.insertMany(petList);
         }
 
         if (users > 0) {
             userList = await MockingService.generarUsuarios(users);
-            // BUG FIX: insertMany para usuarios también
-            await usersService.dao.insert(userList);
+            await usersService.insertMany(userList);
         }
 
         return res.status(201).json({
