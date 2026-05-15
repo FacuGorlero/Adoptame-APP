@@ -1,0 +1,147 @@
+openapi: 3.0.1
+info:
+  title: 'Adoptame API'
+  description: 'Documentación de la API de Adoptame'
+  version: '1.0.0'
+paths:
+  /api/users:
+    get:
+      summary: Obtener todos los usuarios
+      operationId: getAllUsers
+      responses:
+        '200':
+          description: Lista de usuarios
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  payload:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: '123'
+                        name:
+                          type: string
+                          example: 'John Doe'
+                        email:
+                          type: string
+                          example: 'johndoe@example.com'
+        '500':
+          description: Error del servidor
+
+  /api/users/{uid}:
+    get:
+      summary: Obtener un usuario por ID
+      operationId: getUser
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          description: ID del usuario
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Usuario encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  payload:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: '123'
+                      name:
+                        type: string
+                        example: 'John Doe'
+                      email:
+                        type: string
+                        example: 'johndoe@example.com'
+        '404':
+          description: Usuario no encontrado
+        '500':
+          description: Error del servidor
+    put:
+      summary: Actualizar un usuario por ID
+      operationId: updateUser
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          description: ID del usuario
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: 'Jane Doe'
+                email:
+                  type: string
+                  example: 'janedoe@example.com'
+      responses:
+        '200':
+          description: Usuario actualizado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: 'User updated'
+        '400':
+          description: Datos inválidos
+        '404':
+          description: Usuario no encontrado
+        '500':
+          description: Error del servidor
+    delete:
+      summary: Eliminar un usuario por ID
+      operationId: deleteUser
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          description: ID del usuario
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Usuario eliminado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: 'User deleted'
+        '404':
+          description: Usuario no encontrado
+        '500':
+          description: Error del servidor

@@ -1,0 +1,94 @@
+openapi: 3.0.1
+info:
+  title: Adoptame API Documentation
+  description: API documentation for the Adoptame application
+  version: 1.0.0
+paths:
+  /api/adoptions:
+    get:
+      summary: Get all adoptions
+      tags:
+        - Adoptions
+      responses:
+        '200':
+          description: List of all adoptions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Adoption'
+        '500':
+          description: Internal server error
+  /api/adoptions/{aid}:
+    get:
+      summary: Get adoption by ID
+      tags:
+        - Adoptions
+      parameters:
+        - in: path
+          name: aid
+          required: true
+          schema:
+            type: string
+          description: The ID of the adoption to retrieve
+      responses:
+        '200':
+          description: Adoption details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Adoption'
+        '404':
+          description: Adoption not found
+        '500':
+          description: Internal server error
+  /api/adoptions/{uid}/{pid}:
+    post:
+      summary: Create an adoption
+      tags:
+        - Adoptions
+      parameters:
+        - in: path
+          name: uid
+          required: true
+          schema:
+            type: string
+          description: The ID of the user adopting the pet
+        - in: path
+          name: pid
+          required: true
+          schema:
+            type: string
+          description: The ID of the pet being adopted
+      responses:
+        '200':
+          description: Pet adopted successfully
+        '400':
+          description: Pet is already adopted
+        '404':
+          description: User or pet not found
+        '500':
+          description: Internal server error
+components:
+  schemas:
+    Adoption:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: The unique identifier for the adoption
+        owner:
+          type: string
+          description: The ID of the user who adopted the pet
+        pet:
+          type: string
+          description: The ID of the adopted pet
+        createdAt:
+          type: string
+          format: date-time
+          description: The date and time when the adoption was created
+        updatedAt:
+          type: string
+          format: date-time
+          description: The date and time when the adoption was last updated

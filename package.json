@@ -1,0 +1,40 @@
+{
+  "name": "plantilladocumentacion",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js",
+    "test": "mocha test/adoption.test.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@faker-js/faker": "^9.2.0",
+    "bcrypt": "^5.1.0",
+    "connect-mongo": "^5.1.0",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-handlebars": "^8.0.1",
+    "express-session": "^1.18.1",
+    "handlebars-helpers": "^0.10.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.13.6",
+    "multer": "^1.4.5-lts.1",
+    "nodemon": "^3.1.9",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0",
+    "socket.io": "^4.8.1",
+   "swagger-ui-express": "^4.6.3",
+  "swagger-jsdoc": "^6.2.5"
+  },
+  "devDependencies": {
+    "chai": "^4.3.7",
+    "mocha": "^10.1.0",
+    "supertest": "^7.0.0"
+  }
+}

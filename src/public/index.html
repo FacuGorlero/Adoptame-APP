@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Adoptame | Panel Front-End</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">Proyecto Final · API + Front-End</p>
+          <h1>Gestioná adopciones desde una interfaz clara y rápida.</h1>
+          <p class="hero-copy">
+            Este front-end consume tu API existente para registrar usuarios,
+            publicar mascotas, revisar adopciones y ejecutar nuevas adopciones
+            desde un solo panel.
+          </p>
+          <div class="hero-actions">
+            <a href="#panel" class="button button-primary">Abrir panel</a>
+            <a href="/apidocs" class="button button-secondary">Ver Swagger</a>
+          </div>
+        </div>
+        <div class="hero-card">
+          <span class="hero-card-label">Estado del sistema</span>
+          <strong id="apiStatus">Comprobando API…</strong>
+          <p>
+            El panel se sincroniza con <code>/api/users</code>, <code>/api/pets</code>
+            y <code>/api/adoptions</code> para mostrar datos en vivo.
+          </p>
+        </div>
+      </header>
+
+      <main id="panel" class="dashboard">
+        <section class="stats-grid" aria-label="Resumen de datos">
+          <article class="stat-card">
+            <span>Total de usuarios</span>
+            <strong id="usersCount">—</strong>
+            <small>Registrados en la plataforma</small>
+          </article>
+          <article class="stat-card">
+            <span>Total de mascotas</span>
+            <strong id="petsCount">—</strong>
+            <small>Disponibles y adoptadas</small>
+          </article>
+          <article class="stat-card">
+            <span>Adopciones</span>
+            <strong id="adoptionsCount">—</strong>
+            <small>Procesadas por la API</small>
+          </article>
+          <article class="stat-card accent">
+            <span>Mascotas disponibles</span>
+            <strong id="availablePetsCount">—</strong>
+            <small>Listas para adoptar</small>
+          </article>
+        </section>
+
+        <section class="content-grid">
+          <article class="panel-card wide">
+            <div class="panel-header">
+              <div>
+                <p class="panel-kicker">Exploración</p>
+                <h2>Mascotas publicadas</h2>
+              </div>
+              <button class="button button-tertiary" id="refreshDataButton">Actualizar</button>
+            </div>
+            <div class="filters">
+              <label>
+                Buscar mascota
+                <input type="search" id="petSearch" placeholder="Nombre o especie" />
+              </label>
+              <label>
+                Estado
+                <select id="petFilter">
+                  <option value="all">Todas</option>
+                  <option value="available">Disponibles</option>
+                  <option value="adopted">Adoptadas</option>
+                </select>
+              </label>
+            </div>
+            <div id="petsGrid" class="pet-grid"></div>
+          </article>
+
+          <article class="panel-card">
+            <div class="panel-header">
+              <div>
+                <p class="panel-kicker">Alta rápida</p>
+                <h2>Registrar usuario</h2>
+              </div>
+            </div>
+            <form id="registerForm" class="stack-form">
+              <input name="first_name" placeholder="Nombre" required />
+              <input name="last_name" placeholder="Apellido" required />
+              <input name="email" type="email" placeholder="Email" required />
+              <input name="password" type="password" placeholder="Contraseña" required />
+              <button type="submit" class="button button-primary">Crear usuario</button>
+            </form>
+          </article>
+
+          <article class="panel-card">
+            <div class="panel-header">
+              <div>
+                <p class="panel-kicker">Publicación</p>
+                <h2>Cargar mascota</h2>
+              </div>
+            </div>
+            <form id="petForm" class="stack-form">
+              <input name="name" placeholder="Nombre de la mascota" required />
+              <input name="specie" placeholder="Especie" required />
+              <input name="birthDate" type="date" required />
+              <button type="submit" class="button button-primary">Publicar mascota</button>
+            </form>
+          </article>
+
+          <article class="panel-card">
+            <div class="panel-header">
+              <div>
+                <p class="panel-kicker">Operación</p>
+                <h2>Generar adopción</h2>
+              </div>
+            </div>
+            <form id="adoptionForm" class="stack-form">
+              <label>
+                Usuario
+                <select id="adoptionUser" required></select>
+              </label>
+              <label>
+                Mascota disponible
+                <select id="adoptionPet" required></select>
+              </label>
+              <button type="submit" class="button button-primary">Adoptar mascota</button>
+            </form>
+          </article>
+
+          <article class="panel-card">
+            <div class="panel-header">
+              <div>
+                <p class="panel-kicker">Usuarios</p>
+                <h2>Listado reciente</h2>
+              </div>
+            </div>
+            <ul id="usersList" class="data-list"></ul>
+          </article>
+
+          <article class="panel-card">
+            <div class="panel-header">
+              <div>
+                <p class="panel-kicker">Adopciones</p>
+                <h2>Actividad</h2>
+              </div>
+            </div>
+            <ul id="adoptionsList" class="data-list"></ul>
+          </article>
+        </section>
+      </main>
+    </div>
+
+    <div id="toast" class="toast" aria-live="polite"></div>
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>
